@@ -7,7 +7,7 @@ Developer
 Architecture Overview
 ======================
 
-The LLMS TXT Generator extension follows modern TYPO3 v13 development practices with a clean, service-oriented architecture.
+The LLMS TXT Generator extension follows modern TYPO3 v13 development practices.
 
 Core Components
 ===============
@@ -45,7 +45,7 @@ API Reference
 Controller Methods
 ------------------
 
-FGTCLB\\LlmsTxt\\Controller\\LlmsTxtController
+WebVision\\LlmsTxt\\Controller\\LlmsTxtController
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. php:method:: generateAction(string $content = '', array $conf = []): string
@@ -69,7 +69,7 @@ FGTCLB\\LlmsTxt\\Controller\\LlmsTxtController
 Service Classes
 ---------------
 
-FGTCLB\\LlmsTxt\\Service\\LlmsTxtGeneratorService
+WebVision\\LlmsTxt\\Service\\LlmsTxtGeneratorService
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. php:method:: generateLlmsTxt(int $currentPageId): string
@@ -79,7 +79,7 @@ FGTCLB\\LlmsTxt\\Service\\LlmsTxtGeneratorService
    :param int $currentPageId: Current page ID for context
    :returns: Complete llms.txt formatted content
 
-FGTCLB\\LlmsTxt\\Service\\ConfigurationService
+WebVision\\LlmsTxt\\Service\\ConfigurationService
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. php:method:: isEnabled(): bool
@@ -133,125 +133,7 @@ FGTCLB\\LlmsTxt\\Service\\ConfigurationService
 Extending the Extension
 =======================
 
-Adding Custom Content Processors
----------------------------------
-
-To customize how content is processed for Markdown conversion, you can extend or override the MarkdownConverterService:
-
-.. code-block:: php
-
-   <?php
-   declare(strict_types=1);
-
-   namespace Vendor\MyExtension\Service;
-
-   use FGTCLB\LlmsTxt\Service\MarkdownConverterService;
-
-   class CustomMarkdownConverterService extends MarkdownConverterService
-   {
-       public function convertHtmlToMarkdown(string $html): string
-       {
-           // Custom preprocessing
-           $html = $this->preprocessHtml($html);
-
-           // Call parent conversion
-           $markdown = parent::convertHtmlToMarkdown($html);
-
-           // Custom postprocessing
-           return $this->postprocessMarkdown($markdown);
-       }
-
-       protected function preprocessHtml(string $html): string
-       {
-           // Add custom HTML preprocessing logic
-           return $html;
-       }
-
-       protected function postprocessMarkdown(string $markdown): string
-       {
-           // Add custom Markdown postprocessing logic
-           return $markdown;
-       }
-   }
-
-Register your custom service in Services.yaml:
-
-.. code-block:: yaml
-
-   services:
-     Vendor\MyExtension\Service\CustomMarkdownConverterService:
-       public: true
-       autowire: true
-       autoconfigure: true
-
-     # Override the original service
-     FGTCLB\LlmsTxt\Service\MarkdownConverterService:
-       alias: 'Vendor\MyExtension\Service\CustomMarkdownConverterService'
-
-Custom Navigation Building
----------------------------
-
-To customize navigation structure generation:
-
-.. code-block:: php
-
-   <?php
-   declare(strict_types=1);
-
-   namespace Vendor\MyExtension\Builder;
-
-   use FGTCLB\LlmsTxt\Builder\NavigationBuilder;
-
-   class CustomNavigationBuilder extends NavigationBuilder
-   {
-       public function build(int $rootPageId, int $maxDepth): array
-       {
-           $navigation = parent::build($rootPageId, $maxDepth);
-
-           // Add custom navigation processing
-           return $this->filterCustomNavigation($navigation);
-       }
-
-       protected function filterCustomNavigation(array $navigation): array
-       {
-           // Implement custom filtering logic
-           return $navigation;
-       }
-   }
-
-Custom Configuration Sources
-----------------------------
-
-To add configuration from other sources (database, external APIs, etc.):
-
-.. code-block:: php
-
-   <?php
-   declare(strict_types=1);
-
-   namespace Vendor\MyExtension\Service;
-
-   use FGTCLB\LlmsTxt\Service\ConfigurationService;
-
-   class CustomConfigurationService extends ConfigurationService
-   {
-       public function getKeywords(): array
-       {
-           // Get keywords from parent (TypoScript)
-           $keywords = parent::getKeywords();
-
-           // Add keywords from custom source
-           $customKeywords = $this->getKeywordsFromDatabase();
-
-           return array_merge($keywords, $customKeywords);
-       }
-
-       protected function getKeywordsFromDatabase(): array
-       {
-           // Implement database keyword retrieval
-           return [];
-       }
-   }
+tbd.
 
 Hooks and Events
 ================
@@ -268,45 +150,12 @@ Testing
 Unit Testing
 ------------
 
-The extension includes PHPUnit tests. To run tests:
-
-.. code-block:: bash
-
-   # Run all tests
-   vendor/bin/phpunit -c packages/llms_txt/Tests/
-
-   # Run specific test suite
-   vendor/bin/phpunit -c packages/llms_txt/Tests/Unit/
+tbd.
 
 Functional Testing
 ------------------
 
-For functional testing, ensure your test setup includes:
-
-* Proper site configuration
-* Test page tree structure
-* Content elements for testing
-
-.. code-block:: php
-
-   <?php
-   declare(strict_types=1);
-
-   namespace FGTCLB\LlmsTxt\Tests\Functional;
-
-   use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
-
-   class LlmsTxtGenerationTest extends FunctionalTestCase
-   {
-       protected array $testExtensionsToLoad = [
-           'typo3conf/ext/llms_txt',
-       ];
-
-       public function testLlmsTxtGeneration(): void
-       {
-           // Test llms.txt generation logic
-       }
-   }
+tbd.
 
 Performance Considerations
 ==========================

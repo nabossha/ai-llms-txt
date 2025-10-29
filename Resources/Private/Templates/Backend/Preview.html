@@ -28,7 +28,7 @@
                     <div class="card-body">
                         <f:if condition="{hasErrors}">
                             <div class="alert alert-danger">
-                                <h5><f:translate key="LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:validation.errors" /></h5>
+                                <h5><f:translate key="LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:validation.errors" /></h5>
                                 <ul>
                                     <f:for each="{validation.errors}" as="error">
                                         <li>{error -> f:format.htmlentities()}</li>
@@ -39,7 +39,7 @@
 
                         <f:if condition="{hasWarnings}">
                             <div class="alert alert-warning">
-                                <h5><f:translate key="LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:validation.warnings" /></h5>
+                                <h5><f:translate key="LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:validation.warnings" /></h5>
                                 <ul>
                                     <f:for each="{validation.warnings}" as="warning">
                                         <li>{warning -> f:format.htmlentities()}</li>
@@ -53,7 +53,7 @@
 
             <f:if condition="{hasErrors} == 0 && {hasWarnings} == 0">
                 <div class="alert alert-success">
-                    <f:translate key="LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:validation.success" />
+                    <f:translate key="LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:validation.success" />
                 </div>
             </f:if>
         </div>

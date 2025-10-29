@@ -152,40 +152,6 @@ For sites with performance issues:
        # (requires custom extension development)
    }
 
-Web Server Configuration
-------------------------
-
-**Apache .htaccess for .well-known access:**
-
-.. code-block:: apache
-
-   <Files "llm.txt">
-       Header set Content-Type "text/plain; charset=utf-8"
-       Header unset Last-Modified
-       FileETag None
-   </Files>
-
-**Nginx configuration:**
-
-.. code-block:: nginx
-
-   location ~ /\.well-known/llm\.txt$ {
-       add_header Content-Type "text/plain; charset=utf-8";
-       expires -1;
-   }
-
-Memory Limit Issues
--------------------
-
-For PHP memory limit issues:
-
-.. code-block:: php
-
-   # In your site's additional configuration
-   ini_set('memory_limit', '512M');
-
-Or configure in your php.ini or server configuration.
-
 Custom Content Filtering
 -------------------------
 

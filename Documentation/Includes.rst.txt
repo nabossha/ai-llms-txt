@@ -13,5 +13,5 @@
 
 .. |psrlink| replace:: https://www.php-fig.org/psr/
 .. |TYPO3| replace:: TYPO3 CMS
-.. |version| replace:: 1.0
-.. |extension_key| replace:: llms_txt
+.. |version| replace:: 0.1
+.. |extension_key| replace:: ai_llms_txt

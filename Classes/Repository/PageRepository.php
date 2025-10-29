@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FGTCLB\LlmsTxt\Repository;
+namespace WebVision\AiLlmsTxt\Repository;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\FrontendRestrictionContainer;
@@ -37,6 +37,7 @@ class PageRepository
 
     public function findNavigationByParent(int $parentUid): array
     {
+
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
         $queryBuilder->getRestrictions()->removeAll()
             ->add(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
@@ -65,33 +66,5 @@ class PageRepository
         }
 
         return $pages;
-    }
-
-    public function findContentElementsByPage(int $pageId, int $maxResults = 20): array
-    {
-        $queryBuilder = $this->connectionPool->getQueryBuilderForTable('tt_content');
-        $queryBuilder->getRestrictions()->removeAll()
-            ->add(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
-
-        $result = $queryBuilder
-            ->select('header', 'bodytext', 'CType')
-            ->from('tt_content')
-            ->where(
-                $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($pageId)),
-            )
-            ->orderBy('colPos, sorting')
-            ->setMaxResults($maxResults)
-            ->executeQuery();
-
-        $elements = [];
-        while ($row = $result->fetchAssociative()) {
-            $elements[] = [
-                'header' => $row['header'],
-                'bodytext' => $row['bodytext'],
-                'CType' => $row['CType'],
-            ];
-        }
-
-        return $elements;
     }
 }

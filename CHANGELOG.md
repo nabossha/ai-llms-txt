@@ -42,5 +42,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Comprehensive test foundation
 - Full documentation with installation and configuration guides
 
-[Unreleased]: https://github.com/fgtclb/llms-txt/compare/v1.0.0...HEAD
-[1.0.0]: https://github.com/fgtclb/llms-txt/releases/tag/v1.0.0
+[Unreleased]: https://github.com/web-vision/llms-txt/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/web-vision/llms-txt/releases/tag/v1.0.0

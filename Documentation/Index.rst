@@ -7,7 +7,7 @@ LLMS TXT Generator for TYPO3
 .. only:: html
 
 	:Classification:
-		llms_txt
+		ai_llms_txt
 
 	:Version:
 		|release|
@@ -16,16 +16,16 @@ LLMS TXT Generator for TYPO3
 		en
 
 	:Description:
-		TYPO3 extension for generating .well-known/llm.txt files according to llmstxt.org specification to control Large Language Model crawling policies.
+		TYPO3 extension for generating llms.txt links according to llmstxt.org specification to control Large Language Model crawling policies.
 
 	:Keywords:
-		TYPO3, CMS, llm, ai, crawling, policy
+		TYPO3, CMS, llm, ai, crawling, policy, llmstxt
 
 	:Copyright:
 		2025
 
 	:Author:
-		FGTCLB
+		web-vision GmbH
 
 	:License:
 		This document is published under the Open Publication License

@@ -4,10 +4,10 @@
 ChangeLog
 =========
 
-Version 1.0.0
+Version 0.1.0
 ==============
 
-Release Date: 2024-10-24
+Release Date: 2025-10-29
 
 Initial Release
 ---------------
@@ -22,7 +22,6 @@ New Features
 * Complete llms.txt generation according to the llmstxt.org specification
 * Automatic site navigation structure inclusion with configurable depth
 * Page-to-Markdown conversion for any TYPO3 page via .md suffix
-* Integration with TYPO3's native content rendering pipeline
 
 **Configuration Options**
 
@@ -40,14 +39,6 @@ New Features
 * Proper separation of concerns with dedicated services for each responsibility
 * HTML-to-Markdown conversion using league/html-to-markdown library
 * Route enhancers for user-friendly URLs (.md suffix and llms.txt endpoints)
-
-**Developer Features**
-
-* Comprehensive API with proper type hints and documentation
-* Extensible service architecture for customization
-* Unit and functional test foundation
-* PSR-12 compliant code with strict typing
-* Composer package with proper autoloading
 
 **Documentation**
 
@@ -89,7 +80,7 @@ No deprecations in this initial release.
 Credits
 ~~~~~~~
 
-* Development: FGTCLB
+* Development: web-vision GmbH
 * Based on the llmstxt.org specification for AI-readable content guidelines
 * Uses league/html-to-markdown for HTML-to-Markdown conversion
 
@@ -100,10 +91,9 @@ Install via Composer:
 
 .. code-block:: bash
 
-   composer require fgtclb/llms-txt
+   composer require web-vision/llms-txt
 
-Or install through the TYPO3 Extension Manager by searching for "llms_txt".
-
-After installation, the extension is ready to use with default settings. Visit ``/.well-known/llm.txt`` to see the generated content.
+After installation, the extension is ready to use with default settings. Visit ?type=1699 or ?type=1701
+or ``/.well-known/llms.txt`` if you have configured RouterEnhancers, to access the generated links.
 
 For detailed configuration options, see the Configuration section of this documentation.

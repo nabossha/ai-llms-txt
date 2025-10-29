@@ -4,7 +4,7 @@
 [![PHP 8.3+](https://img.shields.io/badge/PHP-8.3+-blue.svg)](https://www.php.net/)
 [![License: GPL v2+](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
 
-TYPO3 extension for generating `.well-known/llm.txt` files according to the [llmstxt.org specification](https://llmstxt.org/) to control Large Language Model crawling policies.
+TYPO3 extension for generating `llms.txt` links according to the [llmstxt.org specification](https://llmstxt.org/) to control Large Language Model crawling policies.
 
 ## Features
 
@@ -13,7 +13,6 @@ TYPO3 extension for generating `.well-known/llm.txt` files according to the [llm
 - **Configurable metadata** - Add topics, contact information, and custom descriptions
 - **Markdown export** - Convert any TYPO3 page to Markdown format via `.md` suffix
 - **TYPO3 v13 compatibility** - Built specifically for TYPO3 v13 using modern PHP practices
-- **Flexible configuration** - Control depth, content, and behavior through TypoScript
 
 ## What is llms.txt?
 
@@ -29,50 +28,25 @@ llms.txt is an emerging standard for websites to communicate with Large Language
 ### Composer (Recommended)
 
 ```bash
-composer require fgtclb/llms-txt
+composer require web-vision/ai-llms-txt
 ```
-
-### Extension Manager
-
-1. Go to **Admin Tools > Extensions** in the TYPO3 backend
-2. Search for "llms_txt" in the **Get Extensions** section
-3. Install and activate the extension
 
 ## Quick Start
 
 After installation, the extension works immediately with default settings:
 
-- **llms.txt file**: Visit `https://yoursite.com/.well-known/llm.txt`
+- **llms.txt generation**: Visit `https://yoursite.com/?type=1699`
+- **Markdown pages**: Visit `https://yoursite.com/?type=1701`
+
+with Route Enhancer:
+
+- **llms.txt file**: Visit `https://yoursite.com/.well-known/llms.txt`
 - **Markdown pages**: Add `.md` to any page URL (e.g., `https://yoursite.com/about.md`)
 
 ## Configuration
 
-Configure the extension through TypoScript:
+All settings can be configured in your site configuration.
 
-```typoscript
-llmstxt {
-    settings {
-        # Enable/disable the extension
-        enabled = 1
-
-        # Maximum navigation depth
-        maxDepth = 3
-
-        # Custom site title and description
-        titleOverride = My Custom Site Title
-        descriptionOverride = A comprehensive resource for web development
-
-        # Keywords/topics for the site
-        keywords = TYPO3, web development, content management
-
-        # Contact email for AI systems
-        contactEmail = ai-contact@example.com
-
-        # Additional information
-        additionalInfo = This site uses TYPO3 CMS for content management.
-    }
-}
-```
 
 ## Route Configuration
 
@@ -82,7 +56,7 @@ To enable user-friendly URLs, include the route enhancers in your site configura
 # config/sites/main/config.yaml
 imports:
   -
-    resource: 'EXT:llms_txt/Configuration/Routes/RouterEnhancer.yaml'
+    resource: 'EXT:ai_llms_txt/Configuration/Routes/RouterEnhancer.yaml'
 ```
 
 This enables:
@@ -94,38 +68,15 @@ This enables:
 ### Accessing Generated Content
 
 **llms.txt files:**
-- `https://yoursite.com/.well-known/llm.txt` - Main specification file
+- `https://yoursite.com/?type=1699`
+- `https://yoursite.com/.well-known/llms.txt` - with route enhancer
 - `https://yoursite.com/llms.txt` - Alternative access (with route enhancer)
 
 **Markdown content:**
+- `https://yoursite.com/?type=1701`
 - `https://yoursite.com/about.md` - Markdown version of your About page
 - `https://yoursite.com/services/consulting.md` - Markdown version of any page
 
-### Sample llms.txt Output
-
-```
-ACME Corporation - Web Solutions
-Leading provider of TYPO3 development and consulting services
-
-**Topics:** TYPO3, web development, consulting, e-commerce
-**Contact:** partnerships@acme-corp.com
-
-## Navigation
-
-- [Home](https://example.com/)
-- [About Us](https://example.com/about)
-  - [Our Team](https://example.com/about/team)
-  - [History](https://example.com/about/history)
-- [Services](https://example.com/services)
-  - [TYPO3 Development](https://example.com/services/typo3)
-  - [Consulting](https://example.com/services/consulting)
-- [Contact](https://example.com/contact)
-
----
-
-This site uses TYPO3 CMS for content management.
-For partnership inquiries, contact partnerships@acme-corp.com
-```
 
 ## Requirements
 
@@ -141,24 +92,6 @@ Comprehensive documentation is available covering:
 - [Editor Guidelines](Documentation/Editor/Index.rst)
 - [Developer API Reference](Documentation/Developer/Index.rst)
 - [TypoScript Configuration](Documentation/Configuration/Index.rst)
-
-## Architecture
-
-The extension follows modern TYPO3 v13 development practices:
-
-- **Service-oriented architecture** with dependency injection
-- **Clean separation of concerns** with dedicated services
-- **Type-safe PHP 8.3+** with strict typing throughout
-- **PSR-12 compliant** code standards
-- **Comprehensive testing** foundation
-
-### Core Services
-
-- **LlmsTxtGeneratorService** - Orchestrates llms.txt generation
-- **MarkdownConverterService** - Converts HTML to Markdown
-- **ConfigurationService** - Handles TypoScript configuration
-- **NavigationBuilder** - Builds site navigation structures
-- **PageRepository** - Database access with TYPO3 context awareness
 
 ## Contributing
 
@@ -184,4 +117,3 @@ This extension is licensed under GPL v2+ - see the [LICENSE](LICENSE) file for d
 
 - [llmstxt.org](https://llmstxt.org/) - Official specification
 - [TYPO3 Documentation](https://docs.typo3.org/) - TYPO3 CMS documentation
-- [Academic Extensions](https://github.com/fgtclb/academic-extensions) - Related TYPO3 extensions by FGTCLB

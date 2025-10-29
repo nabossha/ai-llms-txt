@@ -1,0 +1,49 @@
+name: publish
+on:
+  push:
+    tags:
+      - '*'
+jobs:
+  publish:
+    name: Ensure GitHub Release with extension TER artifact and publishing to TER
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    env:
+      TYPO3_API_TOKEN: ${{ secrets.TYPO3_API_TOKEN }}
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Get version
+        id: get-version
+        run: echo "version=${GITHUB_REF/refs\/tags\//}" >> $GITHUB_ENV
+
+      - name: Get comment
+        id: get-comment
+        run: |
+          readonly local comment=$(git tag -n10 -l ${{ steps.get-version.outputs.version }} | sed "s/^[0-9.]*[ ]*//g")
+          if [[ -z "${comment// }" ]]; then
+            echo ::set-output name=comment::Released version ${{ steps.get-version.outputs.version }} of container
+          else
+            echo ::set-output name=comment::$comment
+          fi
+
+      - name: Setup PHP
+        if: github.event.base_ref == 'refs/heads/main'
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.3
+          extensions: intl, mbstring, json, zip, curl
+          tools: composer:v2
+
+      - name: Install tailor
+        run: composer global require typo3/tailor --prefer-dist --no-progress --no-suggest
+      # Note that step will fail when `env.version` does not match the `ext_emconf.php` version.
+      - name: Create local TER package upload artifact
+        run: |
+          php ~/.composer/vendor/bin/tailor create-artefact ${{ env.version }} ${{ env.DETECTED_EXTENSION_KEY }}
+
+      - name: Publish to TER
+        run: php ~/.composer/vendor/bin/tailor ter:publish --comment "${{ steps.get-comment.outputs.comment }}" ${{ steps.get-version.outputs.version }}

@@ -1,3 +1,10 @@
+page {
+     headerData {
+        1761744920 = TEXT
+        1761744920.value = <link rel="alternate" type="text/plain" href="/llms.txt" />
+    }
+}
+
 llmstxt = PAGE
 llmstxt {
     typeNum = 1699
@@ -14,7 +21,7 @@ llmstxt {
 
     10 = USER
     10 {
-        userFunc = FGTCLB\LlmsTxt\Controller\LlmsTxtController->generateAction
+        userFunc = WebVision\AiLlmsTxt\Controller\LlmsTxtController->generateAction
     }
 }
 

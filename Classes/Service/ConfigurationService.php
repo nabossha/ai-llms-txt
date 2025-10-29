@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FGTCLB\LlmsTxt\Service;
+namespace WebVision\AiLlmsTxt\Service;
 
 use TYPO3\CMS\Core\Site\Entity\Site;
 use TYPO3\CMS\Core\Site\SiteFinder;
@@ -17,9 +17,7 @@ class ConfigurationService
         private readonly SiteFinder $siteFinder
     ) {}
 
-    /**
-     * Get the current site
-     */
+
     protected function getCurrentSite(): ?Site
     {
         $sites = $this->siteFinder->getAllSites();
@@ -30,9 +28,6 @@ class ConfigurationService
         return reset($sites);
     }
 
-    /**
-     * Get the main site URL
-     */
     public function getSiteUrl(): string
     {
         $site = $this->getCurrentSite();
@@ -43,9 +38,6 @@ class ConfigurationService
         return (string)$site->getBase();
     }
 
-    /**
-     * Get the main site name
-     */
     public function getSiteName(): string
     {
         $site = $this->getCurrentSite();
@@ -56,9 +48,6 @@ class ConfigurationService
         return $site->getIdentifier();
     }
 
-    /**
-     * Check if llms.txt generation is enabled
-     */
     public function isEnabled(): bool
     {
         $site = $this->getCurrentSite();
@@ -69,9 +58,6 @@ class ConfigurationService
         return (bool)($site->getConfiguration()['llmsTxtEnabled'] ?? true);
     }
 
-    /**
-     * Get custom title override
-     */
     public function getTitleOverride(): ?string
     {
         $site = $this->getCurrentSite();
@@ -83,9 +69,6 @@ class ConfigurationService
         return !empty($title) ? trim($title) : null;
     }
 
-    /**
-     * Get custom description override
-     */
     public function getDescriptionOverride(): ?string
     {
         $site = $this->getCurrentSite();
@@ -97,9 +80,6 @@ class ConfigurationService
         return !empty($description) ? trim($description) : null;
     }
 
-    /**
-     * Get additional markdown content
-     */
     public function getAdditionalInfo(): ?string
     {
         $site = $this->getCurrentSite();
@@ -111,9 +91,6 @@ class ConfigurationService
         return !empty($info) ? trim($info) : null;
     }
 
-    /**
-     * Get contact email
-     */
     public function getContactEmail(): ?string
     {
         $site = $this->getCurrentSite();
@@ -125,9 +102,6 @@ class ConfigurationService
         return !empty($email) ? trim($email) : null;
     }
 
-    /**
-     * Get keywords/topics
-     */
     public function getKeywords(): array
     {
         $site = $this->getCurrentSite();
@@ -143,9 +117,6 @@ class ConfigurationService
         return array_map('trim', explode(',', $keywords));
     }
 
-    /**
-     * Get maximum navigation depth
-     */
     public function getMaxDepth(): int
     {
         $site = $this->getCurrentSite();

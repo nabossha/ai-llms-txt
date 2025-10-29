@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace FGTCLB\LlmsTxt\Builder;
+namespace WebVision\AiLlmsTxt\Builder;
 
-use FGTCLB\LlmsTxt\Repository\PageRepository;
-use FGTCLB\LlmsTxt\Service\UrlGeneratorService;
+use WebVision\AiLlmsTxt\Repository\PageRepository;
+use WebVision\AiLlmsTxt\Service\UrlGeneratorService;
 
 /**
  * Builder for creating hierarchical navigation structures
@@ -21,8 +21,7 @@ class NavigationBuilder
     /**
      * Build hierarchical navigation structure
      */
-    public function build(int $rootPageUid, int $maxDepth = 2): array
-    {
+    public function build(int $rootPageUid, int $maxDepth = 2): array {
         $structure = [];
 
         // Get main navigation pages (level 1)
@@ -31,6 +30,8 @@ class NavigationBuilder
         foreach ($mainPages as $mainPage) {
             $section = [
                 'title' => $mainPage['title'],
+                'description' => $mainPage['description'] ?: $mainPage['abstract'] ?: '',
+                'url' => $this->urlGenerator->generatePageUrl($mainPage['uid']),
                 'pages' => [],
             ];
 
@@ -63,14 +64,15 @@ class NavigationBuilder
 
         foreach ($navigationStructure as $section) {
             // Section header (plain text)
-            $lines[] = $section['title'];
+            if (!empty($section['url'])) {
+                $lines[] = "+ [{$section['title']}]({$section['url']})";
+            }
 
-            // Page links
             foreach ($section['pages'] as $page) {
                 if (!empty($page['description'])) {
-                    $lines[] = "- [{$page['title']}]({$page['url']}): {$page['description']}";
+                    $lines[] = "  - [{$page['title']}]({$page['url']}): {$page['description']}";
                 } else {
-                    $lines[] = "- [{$page['title']}]({$page['url']})";
+                    $lines[] = "  - [{$page['title']}]({$page['url']})";
                 }
             }
 

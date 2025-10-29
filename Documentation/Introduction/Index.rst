@@ -17,7 +17,7 @@ The extension creates two types of content:
 Key Features
 ============
 
-* **Automatic llms.txt generation** - Creates policy files at /.well-known/llm.txt according to the official specification
+* **Automatic llms.txt generation** - Creates policy links at /.well-known/llms.txt according to the official specification
 * **Site navigation structure** - Automatically includes your site's navigation hierarchy in the llms.txt file
 * **Configurable metadata** - Add topics, contact information, and custom descriptions
 * **Markdown export** - Convert any TYPO3 page to Markdown format via .md suffix

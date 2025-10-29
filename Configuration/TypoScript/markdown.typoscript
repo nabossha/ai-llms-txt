@@ -17,6 +17,6 @@ markdown_page {
 
     10 = USER
     10 {
-        userFunc = FGTCLB\LlmsTxt\Controller\LlmsTxtController->renderPageAsMarkdown
+        userFunc = WebVision\AiLlmsTxt\Controller\LlmsTxtController->renderPageAsMarkdown
     }
 }

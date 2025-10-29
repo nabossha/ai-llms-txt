@@ -78,7 +78,7 @@ Viewing Generated Content
 As an editor, you can preview the generated content to understand how AI systems will see your pages:
 
 **To view the llms.txt file:**
-  Visit ``/.well-known/llm.txt`` on your website's frontend.
+  Visit ``/.well-known/llms.txt`` on your website's frontend.
 
 **To view a page in Markdown:**
   Add ``.md`` to any page URL to see the Markdown version.

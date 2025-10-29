@@ -2,26 +2,24 @@
 
 declare(strict_types=1);
 
-namespace FGTCLB\LlmsTxt\Service;
+namespace WebVision\AiLlmsTxt\Service;
 
-/**
- * Service for generating URLs
- */
+use TYPO3\CMS\Core\Site\SiteFinder;
+
 class UrlGeneratorService
 {
     public function __construct(
-        private readonly ConfigurationService $configurationService
+        private readonly SiteFinder $siteFinder
     ) {}
 
     /**
-     * Generate absolute URL for a page
+     * Generate absolute URL for a markdown page
      */
     public function generatePageUrl(int $pageUid): string
     {
-        $siteUrl = $this->configurationService->getSiteUrl();
-
-        // Fallback to simple URL construction
-        // TODO: Implement pretty URLs using TYPO3 Site Router when Request object is available
-        return rtrim($siteUrl, '/') . '/?id=' . $pageUid;
+        $site = $this->siteFinder->getSiteByPageId($pageUid);
+        //@todo: What about language handling? For now we ignore it. As LLMs dont seem to care about it.
+        $url = (string)$site->getRouter()->generateUri($pageUid);
+        return $url . '.md';
     }
 }

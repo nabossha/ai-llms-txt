@@ -7,22 +7,15 @@ Administrator
 Installation
 ============
 
-The extension can be installed using Composer (recommended) or through the TYPO3 Extension Manager.
+The extension can be installed using Composer (recommended). Legacy mode is not tested.
 
 Composer Installation
 ---------------------
 
 .. code-block:: bash
 
-   composer require fgtclb/llms-txt
+   composer require web-vision/llms-txt
 
-Extension Manager Installation
-------------------------------
-
-1. Go to **Admin Tools > Extensions** in the TYPO3 backend
-2. Search for "llms_txt" in the **Get Extensions** section
-3. Install the extension
-4. Activate the extension if not automatically activated
 
 Configuration
 =============
@@ -43,12 +36,12 @@ The extension automatically uses your site's configuration from ``config/sites/[
 
    imports:
      -
-       resource: 'EXT:llms_txt/Configuration/Routes/RouterEnhancer.yaml'
+       resource: 'EXT:ai_llms_txt/Configuration/Routes/RouterEnhancer.yaml'
 
 This import adds the following route enhancers:
 
-* ``.md`` suffix for Markdown content (typeNum 1701)
 * ``llms.txt`` for the llms.txt specification (typeNum 1699)
+* ``.md`` suffix for Markdown content (typeNum 1701)
 
 Accessing Generated Content
 ===========================
@@ -58,8 +51,9 @@ After installation, the following URLs become available:
 llms.txt Files
 --------------
 
-* **https://yoursite.com/.well-known/llm.txt** - Main llms.txt file according to specification
+* **https://yoursite.com/?type=1699** - Default access via typeNum
 * **https://yoursite.com/llms.txt** - Alternative direct access (if route enhancer is configured)
+
 
 Markdown Content
 ----------------
@@ -70,8 +64,11 @@ Testing the Installation
 ========================
 
 1. **Test llms.txt generation:**
+   Visit ``https://yoursite.com/llms.txt`` to verify the llms.txt is accessible.
 
-   Visit ``https://yoursite.com/.well-known/llm.txt`` to verify the llms.txt file is generated correctly.
+   or
+
+   Visit ``https://yoursite.com/.well-known/llms.txt``
 
 2. **Test Markdown conversion:**
 

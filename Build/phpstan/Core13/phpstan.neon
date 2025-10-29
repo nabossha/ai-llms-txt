@@ -1,0 +1,37 @@
+parameters:
+    level: 8
+    paths:
+        - ../../Classes
+        - ../../Configuration
+        - ../../Tests
+    excludePaths:
+        - ../../Tests/Acceptance
+        - ../../.Build
+        - ../../Documentation
+        - ../../vendor
+    treatPhpDocTypesAsCertain: false
+    reportUnmatchedIgnoredErrors: false
+    checkUninitializedProperties: true
+    checkMissingCallableSignature: true
+    checkTooWideReturnTypesInProtectedAndPublicMethods: true
+    checkImplicitMixed: true
+    checkBenevolentUnionTypes: true
+    bootstrapFiles:
+        - ../../.Build/Web/typo3conf/ext/ai_llms_txt/Tests/Build/FunctionalTestsBootstrap.php
+    scanDirectories:
+        - ../../.Build/Web/typo3/sysext
+        - ../../.Build/Web/typo3conf/ext
+    ignoreErrors:
+        - '#Cannot call method [a-zA-Z0-9_]+\(\) on TYPO3\\CMS\\Core\\Database\\Query\\QueryResult\|false\.#'
+        - '#Access to an undefined property TYPO3\\CMS\\Extbase\\Domain\\Model\\.*::\$.*#'
+        - '#Call to an undefined method TYPO3\\CMS\\Extbase\\Persistence\\Generic\\QueryResult<.*>::.*#'
+        - '#Parameter \#1 \$.*\) of method TYPO3\\CMS\\.*::.* expects .*, TYPO3\\CMS\\Extbase\\DomainObject\\AbstractEntity given\.#'
+        # Allow TYPO3-specific annotations and patterns
+        - '#.*@TYPO3\\CMS\\Extbase\\Annotation\\.*#'
+        - '#Call to deprecated method getTypoScriptService\(\) of class TYPO3\\CMS\\Core\\TypoScript\\TypoScriptService\.#'
+
+services:
+    -
+        class: SaschaEgerer\PhpstanTypo3\Type\Typo3GeneralUtilityDynamicReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension

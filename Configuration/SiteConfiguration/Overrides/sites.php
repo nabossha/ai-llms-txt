@@ -1,13 +1,8 @@
 <?php
 
-/**
- * Add llms.txt configuration fields to site configuration
- */
-
-// Add llmsTxtEnabled field
 $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtEnabled'] = [
-    'label' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtEnabled',
-    'description' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtEnabled.description',
+    'label' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtEnabled',
+    'description' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtEnabled.description',
     'config' => [
         'type' => 'check',
         'renderType' => 'checkboxToggle',
@@ -22,21 +17,19 @@ $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtEnabled'] = [
     ],
 ];
 
-// Add llmsTxtTitle field
 $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtTitle'] = [
-    'label' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtTitle',
-    'description' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtTitle.description',
+    'label' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtTitle',
+    'description' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtTitle.description',
     'config' => [
         'type' => 'input',
-        'placeholder' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtTitle.placeholder',
+        'placeholder' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtTitle.placeholder',
         'eval' => 'trim',
     ],
 ];
 
-// Add llmsTxtDescription field
 $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtDescription'] = [
-    'label' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtDescription',
-    'description' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtDescription.description',
+    'label' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtDescription',
+    'description' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtDescription.description',
     'config' => [
         'type' => 'text',
         'rows' => 3,
@@ -44,10 +37,9 @@ $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtDescription'] = [
     ],
 ];
 
-// Add llmsTxtAdditionalInfo field
 $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtAdditionalInfo'] = [
-    'label' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtAdditionalInfo',
-    'description' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtAdditionalInfo.description',
+    'label' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtAdditionalInfo',
+    'description' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtAdditionalInfo.description',
     'config' => [
         'type' => 'text',
         'rows' => 10,
@@ -56,10 +48,9 @@ $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtAdditionalInfo'] = [
     ],
 ];
 
-// Add llmsTxtContactEmail field
 $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtContactEmail'] = [
-    'label' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtContactEmail',
-    'description' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtContactEmail.description',
+    'label' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtContactEmail',
+    'description' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtContactEmail.description',
     'config' => [
         'type' => 'input',
         'eval' => 'trim,email',
@@ -67,21 +58,19 @@ $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtContactEmail'] = [
     ],
 ];
 
-// Add llmsTxtKeywords field
 $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtKeywords'] = [
-    'label' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtKeywords',
-    'description' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtKeywords.description',
+    'label' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtKeywords',
+    'description' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtKeywords.description',
     'config' => [
         'type' => 'input',
         'eval' => 'trim',
-        'placeholder' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtKeywords.placeholder',
+        'placeholder' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtKeywords.placeholder',
     ],
 ];
 
-// Add llmsTxtMaxDepth field
 $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtMaxDepth'] = [
-    'label' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtMaxDepth',
-    'description' => 'LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtMaxDepth.description',
+    'label' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtMaxDepth',
+    'description' => 'LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.llmsTxtMaxDepth.description',
     'config' => [
         'type' => 'number',
         'default' => 2,
@@ -92,13 +81,12 @@ $GLOBALS['SiteConfiguration']['site']['columns']['llmsTxtMaxDepth'] = [
     ],
 ];
 
-// Add new tab and fields to showitem
 if (!isset($GLOBALS['SiteConfiguration']['site']['types']['0']['showitem'])) {
     $GLOBALS['SiteConfiguration']['site']['types']['0']['showitem'] = '';
 }
 
 $GLOBALS['SiteConfiguration']['site']['types']['0']['showitem'] .= ',
-    --div--;LLL:EXT:llms_txt/Resources/Private/Language/locallang.xlf:site.tab.llmstxt,
+    --div--;LLL:EXT:ai_llms_txt/Resources/Private/Language/locallang.xlf:site.tab.llmstxt,
         llmsTxtEnabled,
         llmsTxtTitle,
         llmsTxtDescription,

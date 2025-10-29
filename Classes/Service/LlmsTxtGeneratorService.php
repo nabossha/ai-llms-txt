@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace FGTCLB\LlmsTxt\Service;
+namespace WebVision\AiLlmsTxt\Service;
 
-use FGTCLB\LlmsTxt\Builder\NavigationBuilder;
-use FGTCLB\LlmsTxt\Repository\PageRepository;
+use WebVision\AiLlmsTxt\Builder\NavigationBuilder;
+use WebVision\AiLlmsTxt\Repository\PageRepository;
 use TYPO3\CMS\Core\Site\SiteFinder;
 
 /**
@@ -37,17 +37,21 @@ class LlmsTxtGeneratorService
 
         $title = $this->configurationService->getTitleOverride() ?: $homePage['title'] ?? '';
         if (!empty($title)) {
-            $lines[] = $title;
+            $lines[] =  "# $title";
         }
+
+         $lines[] = '';
 
         $description = $this->configurationService->getDescriptionOverride() ?: $homePage['description'] ?? '';
         if (!empty($description)) {
-            $lines[] = $description;
+            $lines[] = "> $description";
         }
 
         $lines = array_merge($lines, $this->buildMetadataSection());
 
-        $lines[] = ''; // Empty line before navigation
+        $lines[] = '';
+        $lines[] = 'Main Page Structure';
+        $lines[] = '';
 
         $maxDepth = $this->configurationService->getMaxDepth();
         $navigationStructure = $this->navigationBuilder->build(

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace FGTCLB\LlmsTxt\Controller;
+namespace WebVision\AiLlmsTxt\Controller;
 
-use FGTCLB\LlmsTxt\Repository\PageRepository;
-use FGTCLB\LlmsTxt\Service\ConfigurationService;
-use FGTCLB\LlmsTxt\Service\LlmsTxtGeneratorService;
-use FGTCLB\LlmsTxt\Service\MarkdownConverterService;
+use WebVision\AiLlmsTxt\Repository\PageRepository;
+use WebVision\AiLlmsTxt\Service\ConfigurationService;
+use WebVision\AiLlmsTxt\Service\LlmsTxtGeneratorService;
+use WebVision\AiLlmsTxt\Service\MarkdownConverterService;
 use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -86,7 +86,7 @@ class LlmsTxtController
         $pageId = $this->getCurrentPageId();
         $page = $this->pageRepository->findById($pageId);
 
-        $html = "<!-- Auto-generated content -->\n";
+        $html = "";
 
         if (!empty($page['title'])) {
             $html .= '<h1>' . htmlspecialchars($page['title']) . '</h1>';
@@ -116,9 +116,6 @@ class LlmsTxtController
         return $html;
     }
 
-    /**
-     * Get current page ID from TYPO3 context
-     */
     protected function getCurrentPageId(): int
     {
         try {

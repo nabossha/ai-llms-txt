@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FGTCLB\LlmsTxt\Service;
+namespace WebVision\AiLlmsTxt\Service;
 
 use League\HTMLToMarkdown\HtmlConverter;
 
@@ -35,6 +35,7 @@ class MarkdownConverterService
             'hard_break' => true,
             'strip_placeholder_links' => false,
             'use_autolinks' => false,
+            'header_style' => 'atx', // Use ATX style headers (e.g., ## Header)
         ]);
 
         try {
@@ -44,30 +45,5 @@ class MarkdownConverterService
         } catch (\Exception $e) {
             return '';
         }
-    }
-
-    /**
-     * Convert content elements to markdown
-     */
-    public function convertContentElementsToMarkdown(array $contentElements): string
-    {
-        $content = [];
-
-        foreach ($contentElements as $element) {
-            if (!empty($element['header'])) {
-                $content[] = '#### ' . $element['header'];
-                $content[] = '';
-            }
-
-            if (!empty($element['bodytext']) && in_array($element['CType'], ['text', 'textmedia', 'textpic'])) {
-                $cleanText = $this->convertHtmlToMarkdown($element['bodytext']);
-                if (!empty($cleanText)) {
-                    $content[] = $cleanText;
-                    $content[] = '';
-                }
-            }
-        }
-
-        return implode("\n", $content);
     }
 }

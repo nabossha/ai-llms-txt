@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace FGTCLB\LlmsTxt\Service;
+namespace WebVision\AiLlmsTxt\Service;
 
 /**
  * Service for cleaning TYPO3 HTML output

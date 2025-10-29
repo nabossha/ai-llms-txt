@@ -4,10 +4,9 @@ services:
     autoconfigure: true
     public: false
 
-  FGTCLB\LlmsTxt\:
+  WebVision\AiLlmsTxt\:
     resource: '../Classes/*'
     exclude: '../Classes/Domain/Model/*'
 
-  # Controllers
-  FGTCLB\LlmsTxt\Controller\LlmsTxtController:
+  WebVision\AiLlmsTxt\Controller\LlmsTxtController:
     public: true
