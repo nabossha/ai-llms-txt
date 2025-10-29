@@ -1,0 +1,16 @@
+parameters:
+    level: 8
+    paths:
+        - Classes
+        - Tests
+    ignoreErrors:
+        # Allow usage of GLOBALS in TYPO3 context
+        - '#Access to an undefined property TYPO3\\CMS\\Frontend\\Controller\\TypoScriptFrontendController::\$id#'
+        - '#Variable \$GLOBALS might not be defined#'
+    bootstrapFiles:
+        - .Build/vendor/autoload.php
+    scanDirectories:
+        - .Build/vendor/typo3/cms-core/Classes
+        - .Build/vendor/typo3/cms-backend/Classes
+        - .Build/vendor/typo3/cms-extbase/Classes
+        - .Build/vendor/typo3/cms-fluid/Classes

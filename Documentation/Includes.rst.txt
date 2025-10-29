@@ -1,0 +1,17 @@
+.. This is 'Includes.rst.txt'. It is included at the very top of each and
+   every ReST source file in this documentation project (see Settings.cfg).
+
+.. role:: underline
+.. role:: typoscript(code)
+.. role:: ts(typoscript)
+   :class: typoscript
+.. role:: php(code)
+.. role:: yaml(code)
+
+.. highlight:: guess
+.. default-domain:: php
+
+.. |psrlink| replace:: https://www.php-fig.org/psr/
+.. |TYPO3| replace:: TYPO3 CMS
+.. |version| replace:: 1.0
+.. |extension_key| replace:: llms_txt

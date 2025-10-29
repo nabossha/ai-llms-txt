@@ -1,0 +1,73 @@
+<?php
+
+declare(strict_types=1);
+
+namespace FGTCLB\LlmsTxt\Service;
+
+use League\HTMLToMarkdown\HtmlConverter;
+
+/**
+ * Service for converting HTML to Markdown
+ * Handles HTML to Markdown conversion with proper cleaning
+ */
+class MarkdownConverterService
+{
+    public function __construct(
+        private readonly HtmlCleanerService $htmlCleanerService
+    ) {}
+
+    /**
+     * Convert HTML content to clean Markdown
+     * Strips images and media but preserves links for SEO
+     */
+    public function convertHtmlToMarkdown(string $html): string
+    {
+        if (empty($html)) {
+            return '';
+        }
+
+        $html = $this->htmlCleanerService->cleanTypo3Html($html);
+
+        $converter = new HtmlConverter([
+            'strip_tags' => true,
+            'remove_nodes' => 'img picture figure source video audio iframe script style footer aside',
+            'preserve_comments' => false,
+            'hard_break' => true,
+            'strip_placeholder_links' => false,
+            'use_autolinks' => false,
+        ]);
+
+        try {
+            $markdown = $converter->convert($html);
+            $markdown = html_entity_decode($markdown, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+            return trim($markdown);
+        } catch (\Exception $e) {
+            return '';
+        }
+    }
+
+    /**
+     * Convert content elements to markdown
+     */
+    public function convertContentElementsToMarkdown(array $contentElements): string
+    {
+        $content = [];
+
+        foreach ($contentElements as $element) {
+            if (!empty($element['header'])) {
+                $content[] = '#### ' . $element['header'];
+                $content[] = '';
+            }
+
+            if (!empty($element['bodytext']) && in_array($element['CType'], ['text', 'textmedia', 'textpic'])) {
+                $cleanText = $this->convertHtmlToMarkdown($element['bodytext']);
+                if (!empty($cleanText)) {
+                    $content[] = $cleanText;
+                    $content[] = '';
+                }
+            }
+        }
+
+        return implode("\n", $content);
+    }
+}

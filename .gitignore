@@ -1,0 +1,35 @@
+# Generated documentation
+Documentation-GENERATED-temp/
+Documentation-GENERATED-*/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Composer
+vendor/
+composer.lock
+
+# TYPO3
+typo3temp/
+typo3conf/ext/
+var/
+public/typo3temp/
+
+# Testing
+.phpunit.result.cache
+Build/testing-docker/.env
+
+# Build artifacts
+*.tar.gz
+*.zip
+
+# Local development
+.env
+.env.local
