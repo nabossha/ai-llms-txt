@@ -56,7 +56,7 @@ Requirements
 ============
 
 * TYPO3 CMS 13.0 or higher
-* PHP 8.3 or higher
+* PHP 8.2 or higher
 * league/html-to-markdown package (automatically installed)
 
 The extension integrates seamlessly with existing TYPO3 installations and requires minimal configuration to get started.

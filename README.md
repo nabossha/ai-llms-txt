@@ -1,7 +1,7 @@
 # LLMS TXT Generator for TYPO3
 
 [![TYPO3 13](https://img.shields.io/badge/TYPO3-13-orange.svg)](https://get.typo3.org/version/13)
-[![PHP 8.3+](https://img.shields.io/badge/PHP-8.3+-blue.svg)](https://www.php.net/)
+[![PHP 8.2+](https://img.shields.io/badge/PHP-8.2+-blue.svg)](https://www.php.net/)
 [![License: GPL v2+](https://img.shields.io/badge/License-GPL%20v2+-blue.svg)](https://www.gnu.org/licenses/gpl-2.0)
 
 TYPO3 extension for generating `llms.txt` links according to the [llmstxt.org specification](https://llmstxt.org/) to control Large Language Model crawling policies.
@@ -81,7 +81,7 @@ This enables:
 ## Requirements
 
 - **TYPO3**: 13.0 or higher
-- **PHP**: 8.3 or higher
+- **PHP**: 8.2 or higher
 - **Dependencies**: league/html-to-markdown (automatically installed)
 
 ## Documentation

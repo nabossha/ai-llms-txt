@@ -34,7 +34,7 @@ New Features
 
 **Technical Implementation**
 
-* Built specifically for TYPO3 v13 using modern PHP 8.3+ practices
+* Built specifically for TYPO3 v13 using modern PHP 8.2+ practices
 * Service-oriented architecture with dependency injection
 * Proper separation of concerns with dedicated services for each responsibility
 * HTML-to-Markdown conversion using league/html-to-markdown library
@@ -52,7 +52,7 @@ System Requirements
 ~~~~~~~~~~~~~~~~~~~
 
 * TYPO3 CMS 13.0 or higher
-* PHP 8.3 or higher
+* PHP 8.2 or higher
 * league/html-to-markdown ^5.1 (automatically installed via Composer)
 
 Breaking Changes

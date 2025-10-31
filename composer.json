@@ -1,7 +1,7 @@
 {
     "name": "web-vision/ai-llms-txt",
     "type": "typo3-cms-extension",
-    "description": "TYPO3 extension for generating .well-known/llm.txt files according to llmstxt.org specification",
+    "description": "TYPO3 extension for generating .well-known/llm.txt links according to llmstxt.org specification",
     "keywords": ["TYPO3", "CMS", "llm", "ai", "crawling", "policy"],
     "homepage": "https://github.com/web-vision/llms-txt",
     "license": "GPL-2.0-or-later",
@@ -17,7 +17,7 @@
         "docs": "https://github.com/web-vision/ai-llms-txt#readme"
     },
     "require": {
-        "php": "^8.3",
+        "php": "^8.2",
         "league/html-to-markdown": "^5.1",
         "typo3/cms-backend": "^13.0",
         "typo3/cms-core": "^13.0",
