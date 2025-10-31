@@ -4,7 +4,7 @@
 ChangeLog
 =========
 
-Version 0.1.0
+Version 0.1.1
 ==============
 
 Release Date: 2025-10-29
