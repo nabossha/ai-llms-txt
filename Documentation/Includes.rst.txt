@@ -1,17 +1,34 @@
-.. This is 'Includes.rst.txt'. It is included at the very top of each and
-   every ReST source file in this documentation project (see Settings.cfg).
+..  More information about this file:
+    https://docs.typo3.org/m/typo3/docs-how-to-document/main/en-us/GeneralConventions/FileStructure.html#includes-rst-txt
 
-.. role:: underline
-.. role:: typoscript(code)
-.. role:: ts(typoscript)
-   :class: typoscript
-.. role:: php(code)
-.. role:: yaml(code)
+..  ----------
+..  text roles
+..  ----------
 
-.. highlight:: guess
-.. default-domain:: php
+..  role:: aspect(emphasis)
+..  role:: bash(code)
+..  role:: html(code)
+..  role:: js(code)
+..  role:: php(code)
+..  role:: rst(code)
+..  role:: sep(strong)
+..  role:: sql(code)
 
-.. |psrlink| replace:: https://www.php-fig.org/psr/
-.. |TYPO3| replace:: TYPO3 CMS
-.. |version| replace:: 0.1
-.. |extension_key| replace:: ai_llms_txt
+..  role:: tsconfig(code)
+    :class: typoscript
+
+..  role:: typoscript(code)
+..  role:: xml(code)
+    :class: html
+
+..  role:: yaml(code)
+
+..  default-role:: code
+
+..  ---------
+..  highlight
+..  ---------
+
+..  By default, code blocks use PHP syntax highlighting
+
+..  highlight:: php
