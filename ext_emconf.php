@@ -1,8 +1,6 @@
 <?php
 
-declare(strict_types=1);
-
-$EM_CONF['ai_llms_txt'] = [
+$EM_CONF[$_EXTKEY] = [
     'title' => 'LLMS TXT Generator',
     'description' => 'TYPO3 extension for generating llms.txt links according to llmstxt.org specification to control Large Language Model crawling policies.',
     'category' => 'be',
