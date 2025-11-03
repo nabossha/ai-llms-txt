@@ -9,7 +9,7 @@ markdown_page {
         xhtml_cleaning = 0
         admPanel = 0
         debug = 0
-        no_cache = 1
+        no_cache = 0
         disableCharsetHeader = 1
         forceAbsoluteUrls = 1
     }
