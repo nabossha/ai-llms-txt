@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace WebVision\AiLlmsTxt\Controller;
 
+use Psr\Http\Message\ServerRequestInterface;
 use WebVision\AiLlmsTxt\Repository\PageRepository;
 use WebVision\AiLlmsTxt\Service\ConfigurationService;
 use WebVision\AiLlmsTxt\Service\LlmsTxtGeneratorService;
 use WebVision\AiLlmsTxt\Service\MarkdownConverterService;
-use TYPO3\CMS\Core\Context\Context;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
-use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
 /**
  * Controller for serving llms.txt content via TypoScript PAGE object
@@ -25,17 +24,17 @@ class LlmsTxtController
         private readonly LlmsTxtGeneratorService $llmsTxtGenerator,
         private readonly ConfigurationService $configurationService,
         private readonly MarkdownConverterService $markdownConverter,
-        private readonly PageRepository $pageRepository,
-        private readonly Context $context
+        private readonly PageRepository $pageRepository
     ) {}
 
     /**
      * Generate llms.txt content for TypoScript USER object
      */
-    public function generateAction(string $content = '', array $conf = []): string
+    #[\TYPO3\CMS\Core\Attribute\AsAllowedCallable]
+    public function generateAction(string $content, array $conf, ServerRequestInterface $request): string
     {
         try {
-            $currentPageId = $this->getCurrentPageId();
+            $currentPageId = $request->getAttribute('frontend.page.information')->getId();
             return $this->llmsTxtGenerator->generateLlmsTxt($currentPageId);
         } catch (\Exception $e) {
             // Return error message in llms.txt format
@@ -48,10 +47,11 @@ class LlmsTxtController
      * This approach uses TYPO3's normal rendering pipeline to get ALL content
      * from all column positions (colPos 0, 1, 100+)
      */
-    public function renderPageAsMarkdown(string $content = '', array $conf = []): string
+    #[\TYPO3\CMS\Core\Attribute\AsAllowedCallable]
+    public function renderPageAsMarkdown(string $content, array $conf, ServerRequestInterface $request): string
     {
         try {
-            $pageHtml = $this->getRenderedPageContent();
+            $pageHtml = $this->getRenderedPageContent($request);
 
             if (empty($pageHtml)) {
                 return "# Error\n\nNo page content could be rendered.\n";
@@ -74,16 +74,14 @@ class LlmsTxtController
      * Get the fully rendered page content from TYPO3's frontend rendering
      * This captures ALL content elements from all column positions
      */
-    protected function getRenderedPageContent(): string
+    protected function getRenderedPageContent(ServerRequestInterface $request): string
     {
-        if (!isset($GLOBALS['TSFE']) || !($GLOBALS['TSFE'] instanceof TypoScriptFrontendController)) {
-            throw new \RuntimeException('TSFE not available');
-        }
 
         $cObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $cObject->start([], 'pages');
 
-        $pageId = $this->getCurrentPageId();
+        $pageId = $request->getAttribute('frontend.page.information')->getId();
+
         $page = $this->pageRepository->findById($pageId);
 
         $html = "";
@@ -114,19 +112,5 @@ class LlmsTxtController
         }
 
         return $html;
-    }
-
-    protected function getCurrentPageId(): int
-    {
-        try {
-            $pageAspect = $this->context->getAspect('page');
-            return (int)$pageAspect->get('id');
-        } catch (\Exception $e) {
-            if (isset($GLOBALS['TSFE']) && $GLOBALS['TSFE'] instanceof TypoScriptFrontendController) {
-                return (int)$GLOBALS['TSFE']->id;
-            }
-        }
-
-        return 0;
     }
 }
