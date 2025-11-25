@@ -14,7 +14,7 @@ Composer Installation
 
 .. code-block:: bash
 
-   composer require web-vision/llms-txt
+   composer require web-vision/ai-llms-txt
 
 
 Configuration
