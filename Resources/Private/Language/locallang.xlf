@@ -125,6 +125,15 @@
 			<trans-unit id="site.llmsTxtMaxDepth.description">
 				<source>Maximum depth of page hierarchy to include in navigation (1-5 levels)</source>
 			</trans-unit>
+			<trans-unit id="site.llmsTxtExcludeDoktypes">
+				<source>Exclude Page Types (Doktypes)</source>
+			</trans-unit>
+			<trans-unit id="site.llmsTxtExcludeDoktypes.description">
+				<source>Comma-separated list of page doktypes to exclude from the llms.txt navigation output (e.g., "254,4" to exclude folders and shortcuts)</source>
+			</trans-unit>
+			<trans-unit id="site.llmsTxtExcludeDoktypes.placeholder">
+				<source>254,4</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

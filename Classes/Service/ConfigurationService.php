@@ -126,4 +126,24 @@ class ConfigurationService
 
         return (int)($site->getConfiguration()['llmsTxtMaxDepth'] ?? 2);
     }
+
+    /**
+     * Get the list of doktypes to exclude from navigation
+     *
+     * @return int[] Array of doktype integers to exclude
+     */
+    public function getExcludeDoktypes(): array
+    {
+        $site = $this->getCurrentSite();
+        if ($site === null) {
+            return [];
+        }
+
+        $doktypes = $site->getConfiguration()['llmsTxtExcludeDoktypes'] ?? '';
+        if (empty($doktypes)) {
+            return [];
+        }
+
+        return array_map('intval', array_filter(array_map('trim', explode(',', $doktypes)), 'is_numeric'));
+    }
 }

@@ -35,21 +35,39 @@ class PageRepository
         return $result->fetchAssociative() ?: [];
     }
 
-    public function findNavigationByParent(int $parentUid): array
+    /**
+     * Find navigation pages by parent UID
+     *
+     * @param int $parentUid The parent page UID
+     * @param int[] $excludeDoktypes Array of doktype integers to exclude from results
+     * @return array Array of page data
+     */
+    public function findNavigationByParent(int $parentUid, array $excludeDoktypes = []): array
     {
-
         $queryBuilder = $this->connectionPool->getQueryBuilderForTable('pages');
         $queryBuilder->getRestrictions()->removeAll()
             ->add(GeneralUtility::makeInstance(FrontendRestrictionContainer::class));
 
-        $result = $queryBuilder
+        $queryBuilder
             ->select('uid', 'pid', 'title', 'description', 'abstract', 'nav_title', 'doktype')
             ->from('pages')
             ->where(
                 $queryBuilder->expr()->eq('pid', $queryBuilder->createNamedParameter($parentUid)),
                 $queryBuilder->expr()->eq('nav_hide', $queryBuilder->createNamedParameter(0)),
                 $queryBuilder->expr()->eq('no_index', $queryBuilder->createNamedParameter(0))
-            )
+            );
+
+        // Exclude specified doktypes if provided
+        if (!empty($excludeDoktypes)) {
+            $queryBuilder->andWhere(
+                $queryBuilder->expr()->notIn(
+                    'doktype',
+                    $queryBuilder->createNamedParameter($excludeDoktypes, \TYPO3\CMS\Core\Database\Connection::PARAM_INT_ARRAY)
+                )
+            );
+        }
+
+        $result = $queryBuilder
             ->orderBy('sorting')
             ->executeQuery();
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace WebVision\AiLlmsTxt\Builder;
 
 use WebVision\AiLlmsTxt\Repository\PageRepository;
+use WebVision\AiLlmsTxt\Service\ConfigurationService;
 use WebVision\AiLlmsTxt\Service\UrlGeneratorService;
 
 /**
@@ -15,17 +16,29 @@ class NavigationBuilder
 {
     public function __construct(
         private readonly PageRepository $pageRepository,
-        private readonly UrlGeneratorService $urlGenerator
+        private readonly UrlGeneratorService $urlGenerator,
+        private readonly ConfigurationService $configurationService
     ) {}
 
     /**
      * Build hierarchical navigation structure
+     *
+     * @param int $rootPageUid The root page UID
+     * @param int $maxDepth Maximum navigation depth
+     * @param int[] $excludeDoktypes Optional array of doktypes to exclude (if empty, uses site configuration)
+     * @return array Navigation structure
      */
-    public function build(int $rootPageUid, int $maxDepth = 2): array {
+    public function build(int $rootPageUid, int $maxDepth = 2, array $excludeDoktypes = []): array
+    {
         $structure = [];
 
+        // Use provided excludeDoktypes or fall back to site configuration
+        if (empty($excludeDoktypes)) {
+            $excludeDoktypes = $this->configurationService->getExcludeDoktypes();
+        }
+
         // Get main navigation pages (level 1)
-        $mainPages = $this->pageRepository->findNavigationByParent($rootPageUid);
+        $mainPages = $this->pageRepository->findNavigationByParent($rootPageUid, $excludeDoktypes);
 
         foreach ($mainPages as $mainPage) {
             $section = [
@@ -37,7 +50,7 @@ class NavigationBuilder
 
             // Get subpages if depth allows
             if ($maxDepth >= 2) {
-                $subPages = $this->pageRepository->findNavigationByParent($mainPage['uid']);
+                $subPages = $this->pageRepository->findNavigationByParent($mainPage['uid'], $excludeDoktypes);
 
                 foreach ($subPages as $subPage) {
                     $section['pages'][] = [
