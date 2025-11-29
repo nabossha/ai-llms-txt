@@ -20,12 +20,12 @@ class ConfigurationService
 
     protected function getCurrentSite(): ?Site
     {
-        $sites = $this->siteFinder->getAllSites();
-        if (empty($sites)) {
+        $pageId = (int)($GLOBALS['TSFE']->id ?? 0);
+        if ($pageId === 0) {
             return null;
         }
 
-        return reset($sites);
+        return $this->siteFinder->getSiteByPageId($pageId);
     }
 
     public function getSiteUrl(): string
