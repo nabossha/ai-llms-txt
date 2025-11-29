@@ -25,7 +25,7 @@ class NavigationBuilder
      *
      * @param int $rootPageUid The root page UID
      * @param int $maxDepth Maximum navigation depth
-     * @param int[] $excludeDoktypes Optional array of doktypes to exclude (if empty, uses site configuration)
+     * @param int[] $excludeDoktypes Optional array of doktypes to exclude from output (if empty, uses site configuration)
      * @return array Navigation structure
      */
     public function build(int $rootPageUid, int $maxDepth = 2, array $excludeDoktypes = []): array
@@ -37,32 +37,50 @@ class NavigationBuilder
             $excludeDoktypes = $this->configurationService->getExcludeDoktypes();
         }
 
-        // Get main navigation pages (level 1)
-        $mainPages = $this->pageRepository->findNavigationByParent($rootPageUid, $excludeDoktypes);
+        // Get main navigation pages (level 1) - fetch ALL pages, filter output later
+        $mainPages = $this->pageRepository->findNavigationByParent($rootPageUid);
 
         foreach ($mainPages as $mainPage) {
-            $section = [
-                'title' => $mainPage['title'],
-                'description' => $mainPage['description'] ?: $mainPage['abstract'] ?: '',
-                'url' => $this->urlGenerator->generatePageUrl($mainPage['uid']),
-                'pages' => [],
-            ];
+            // Check if this page's doktype should be excluded from output
+            $isExcluded = in_array($mainPage['doktype'], $excludeDoktypes, true);
 
-            // Get subpages if depth allows
+            // Collect subpages (always traverse, even into excluded pages)
+            $subPagesOutput = [];
             if ($maxDepth >= 2) {
-                $subPages = $this->pageRepository->findNavigationByParent($mainPage['uid'], $excludeDoktypes);
+                $subPages = $this->pageRepository->findNavigationByParent($mainPage['uid']);
 
                 foreach ($subPages as $subPage) {
-                    $section['pages'][] = [
-                        'uid' => $subPage['uid'],
-                        'title' => $subPage['title'],
-                        'url' => $this->urlGenerator->generatePageUrl($subPage['uid']),
-                        'description' => $subPage['description'] ?: $subPage['abstract'] ?: '',
-                    ];
+                    // Only add subpage to output if not excluded
+                    if (!in_array($subPage['doktype'], $excludeDoktypes, true)) {
+                        $subPagesOutput[] = [
+                            'uid' => $subPage['uid'],
+                            'title' => $subPage['title'],
+                            'url' => $this->urlGenerator->generatePageUrl($subPage['uid']),
+                            'description' => $subPage['description'] ?: $subPage['abstract'] ?: '',
+                        ];
+                    }
                 }
             }
 
-            $structure[] = $section;
+            // If this page is excluded, promote its children to the current level
+            if ($isExcluded) {
+                foreach ($subPagesOutput as $promotedPage) {
+                    $structure[] = [
+                        'title' => $promotedPage['title'],
+                        'description' => $promotedPage['description'],
+                        'url' => $promotedPage['url'],
+                        'pages' => [],
+                    ];
+                }
+            } else {
+                // Include this page normally with its subpages
+                $structure[] = [
+                    'title' => $mainPage['title'],
+                    'description' => $mainPage['description'] ?: $mainPage['abstract'] ?: '',
+                    'url' => $this->urlGenerator->generatePageUrl($mainPage['uid']),
+                    'pages' => $subPagesOutput,
+                ];
+            }
         }
 
         return $structure;
